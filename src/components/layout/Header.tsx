@@ -44,55 +44,60 @@ export function Header() {
         } ${tone}`}
       >
         <div
-          className={`mx-auto flex max-w-[1600px] items-center justify-between gap-6 px-5 transition-all duration-700 md:px-10 ${
-            solid ? "h-16" : "h-24"
+          className={`mx-auto flex max-w-[1600px] items-center px-4 transition-all duration-700 sm:px-6 lg:px-10 ${
+            solid ? "h-16" : "h-20 md:h-24"
           }`}
         >
-          <div className="flex items-center gap-3 md:hidden">
-            <button type="button" aria-label="Menu" className="flex h-11 w-11 items-center justify-center" onClick={() => setMenuOpen(true)}>
+          <div className="flex min-w-0 flex-1 items-center justify-start">
+            <button
+              type="button"
+              aria-label="Menu"
+              className="flex h-8 w-8 shrink-0 items-center justify-center sm:h-9 sm:w-9 xl:hidden"
+              onClick={() => setMenuOpen(true)}
+            >
               <Menu className="h-5 w-5" strokeWidth={1.2} />
             </button>
-            <button type="button" aria-label="Search" className="flex h-11 w-11 items-center justify-center" onClick={() => setSearchOpen(true)}>
-              <Search className="h-5 w-5" strokeWidth={1.2} />
-            </button>
+            <nav className="hidden min-w-0 items-center gap-3 xl:flex 2xl:gap-5">
+              {NAV.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="rule-link shrink-0 whitespace-nowrap text-[0.625rem] uppercase tracking-[0.14em]"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </nav>
           </div>
-
-          <nav className="hidden items-center gap-8 md:flex">
-            {NAV.map((item) => (
-              <Link key={item.to} to={item.to} className="label-xs rule-link">
-                {item.label}
-              </Link>
-            ))}
-          </nav>
 
           <Link
             to="/"
             aria-label="MEHR home"
-            className="absolute left-1/2 -translate-x-1/2 text-[1.35rem] sm:text-2xl md:text-[1.7rem]"
+            className="shrink-0 px-2 text-[1.15rem] sm:px-3 sm:text-[1.35rem] md:text-[1.55rem]"
           >
             <Logo />
           </Link>
 
-          <div className="flex items-center gap-4 md:gap-5">
+          <div className="flex min-w-0 flex-1 items-center justify-end gap-0 sm:gap-0.5">
             <button
               type="button"
               aria-label="Search"
-              className="hidden h-11 w-11 items-center justify-center md:flex"
+              className="flex h-8 w-8 items-center justify-center sm:h-9 sm:w-9"
               onClick={() => setSearchOpen(true)}
             >
-              <Search className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.2} />
+              <Search className="h-4 w-4 sm:h-[1.1rem] sm:w-[1.1rem]" strokeWidth={1.2} />
             </button>
-            <Link to="/wishlist" aria-label="Wishlist" className="relative flex h-11 w-11 items-center justify-center">
-              <Heart className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.2} />
+            <Link to="/wishlist" aria-label="Wishlist" className="relative flex h-8 w-8 items-center justify-center sm:h-9 sm:w-9">
+              <Heart className="h-4 w-4 sm:h-[1.1rem] sm:w-[1.1rem]" strokeWidth={1.2} />
               {wishlist.length > 0 && (
-                <span className="absolute right-1 top-1.5 text-[0.6rem]">{wishlist.length}</span>
+                <span className="absolute right-0 top-0.5 text-[0.55rem]">{wishlist.length}</span>
               )}
             </Link>
             <AccountMenu user={user} isAdmin={isAdmin} signOut={signOut} />
-            <button type="button" aria-label="Cart" className="relative flex h-11 w-11 items-center justify-center" onClick={() => setCartOpen(true)}>
-              <ShoppingBag className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.2} />
+            <button type="button" aria-label="Cart" className="relative flex h-8 w-8 items-center justify-center sm:h-9 sm:w-9" onClick={() => setCartOpen(true)}>
+              <ShoppingBag className="h-4 w-4 sm:h-[1.1rem] sm:w-[1.1rem]" strokeWidth={1.2} />
               {count > 0 && (
-                <span className="absolute right-1 top-1.5 text-[0.6rem]">{count}</span>
+                <span className="absolute right-0 top-0.5 text-[0.55rem]">{count}</span>
               )}
             </button>
           </div>
@@ -102,7 +107,7 @@ export function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="fixed inset-0 z-[60] md:hidden"
+            className="fixed inset-0 z-[60] xl:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -205,7 +210,7 @@ function AccountMenu({
         aria-label="Account menu"
         aria-expanded={open}
         aria-haspopup="menu"
-        className="flex h-11 w-11 items-center justify-center"
+        className="flex h-8 w-8 items-center justify-center sm:h-9 sm:w-9"
         onClick={() => setOpen((v) => !v)}
       >
         <User className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.2} />
