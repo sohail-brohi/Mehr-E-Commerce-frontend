@@ -186,9 +186,13 @@ export function Checkout() {
     }
   };
 
+  const stripeReturn = searchParams.get("stripe");
+  const stripeSession = searchParams.get("session_id");
+  const waitingOnStripe = stripeReturn === "success" && Boolean(stripeSession);
+
   if (placed) return <Confirmation order={placed} />;
 
-  if (confirmingStripe) {
+  if (confirmingStripe || waitingOnStripe) {
     return (
       <div className="flex min-h-[80vh] flex-col items-center justify-center px-5 pt-24 text-center">
         <Seo title="Confirming payment | MEHR" robots="noindex" />
